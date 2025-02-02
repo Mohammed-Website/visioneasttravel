@@ -26,47 +26,45 @@ function closeSidebar() {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const section = document.querySelector(".wow_effect_section");
+const section = document.querySelector(".wow_effect_section");
 
-    function createFloatingElement() {
-        const element = document.createElement("div");
-        element.classList.add("floating_element");
+function createFloatingElement() {
+    const element = document.createElement("div");
+    element.classList.add("floating_element");
 
-        // Random position
-        const posX = Math.random() * window.innerWidth;
-        const posY = Math.random() * window.innerHeight;
+    // Random position
+    const posX = Math.random() * window.innerWidth;
+    const posY = Math.random() * window.innerHeight;
 
-        // Random size (more variation)
-        const size = Math.random() * 80 + 30; // Min 30px, Max 110px
-        element.style.width = `${size}px`;
-        element.style.height = `${size}px`;
+    // Random size (more variation)
+    const size = Math.random() * 80 + 30; // Min 30px, Max 110px
+    element.style.width = `${size}px`;
+    element.style.height = `${size}px`;
 
-        // Random animation duration (slower movement)
-        const duration = Math.random() * 6 + 4; // 4s to 10s
-        element.style.animationDuration = `${duration}s`;
+    // Random animation duration (slower movement)
+    const duration = Math.random() * 6 + 4; // 4s to 10s
+    element.style.animationDuration = `${duration}s`;
 
-        // Random blur for depth effect
-        const blurValue = Math.random() * 3 + 1;
-        element.style.filter = `blur(${blurValue}px)`;
+    // Random blur for depth effect
+    const blurValue = Math.random() * 3 + 1;
+    element.style.filter = `blur(${blurValue}px)`;
 
-        // Random opacity for some circles to be more visible
-        element.style.opacity = Math.random() * 0.6 + 0.4; // Between 0.4 and 1
+    // Random opacity for some circles to be more visible
+    element.style.opacity = Math.random() * 0.6 + 0.4; // Between 0.4 and 1
 
-        element.style.left = `${posX}px`;
-        element.style.top = `${posY}px`;
+    element.style.left = `${posX}px`;
+    element.style.top = `${posY}px`;
 
-        section.appendChild(element);
+    section.appendChild(element);
 
-        // Remove after animation ends
-        setTimeout(() => {
-            element.remove();
-        }, duration * 1000);
-    }
+    // Remove after animation ends
+    setTimeout(() => {
+        element.remove();
+    }, duration * 1000);
+}
 
-    // Generate floating elements continuously
-    setInterval(createFloatingElement, 800);
-
+// Generate floating elements continuously
+setInterval(createFloatingElement, 800);
 
 
 
@@ -82,70 +80,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    const words = [
-        "رحلات سياحية",
-        "موسكو",
-        "فرنسا",
-        "لندن",
-        "القاهرة",
-        "اسطنبول",
-        "اسبانيا",
-        "النمسا",
-        "عروض سياحية",
-    ];
 
-    let currentIndex = 1;
-    const dynamicWordElement = document.getElementById("mughader_dynamic_word_switch");
-    const lineTimerElement = document.getElementById("mughader_line_timer");
+const words = [
+    "رحلات سياحية",
+    "موسكو",
+    "فرنسا",
+    "لندن",
+    "القاهرة",
+    "اسطنبول",
+    "اسبانيا",
+    "النمسا",
+    "عروض سياحية",
+];
 
-    // Ensure the initial word is visible
-    dynamicWordElement.classList.add("visible");
+let currentIndex = 1;
+const dynamicWordElement = document.getElementById("mughader_dynamic_word_switch");
+const lineTimerElement = document.getElementById("mughader_line_timer");
 
-    function updateTimerWidth() {
-        const wordWidth = dynamicWordElement.offsetWidth; // Get the width of the current word
-        const scaledWidth = wordWidth * 1; // Adjust width to 40% of the word's width (smaller)
-        lineTimerElement.style.width = `${scaledWidth}px`; // Set timer line width
-        lineTimerElement.style.margin = "0 auto"; // Center the timer under the text
-    }
+// Ensure the initial word is visible
+dynamicWordElement.classList.add("visible");
 
-    function resetTimer() {
-        lineTimerElement.style.transition = "none"; // Disable transition to reset instantly
-        lineTimerElement.style.width = "0"; // Reset width to 0
-        setTimeout(() => {
-            lineTimerElement.style.transition = "width 1.8s linear"; // Reapply transition
-            lineTimerElement.style.width = `${dynamicWordElement.offsetWidth * 1}px`; // Start animation
-        }, 50); // Small delay to ensure transition is reapplied
-    }
+function updateTimerWidth() {
+    const wordWidth = dynamicWordElement.offsetWidth; // Get the width of the current word
+    const scaledWidth = wordWidth * 1; // Adjust width to 40% of the word's width (smaller)
+    lineTimerElement.style.width = `${scaledWidth}px`; // Set timer line width
+    lineTimerElement.style.margin = "0 auto"; // Center the timer under the text
+}
 
-    function changeWord() {
-        // Fade out by removing 'visible' class
-        dynamicWordElement.classList.remove("visible");
+function resetTimer() {
+    lineTimerElement.style.transition = "none"; // Disable transition to reset instantly
+    lineTimerElement.style.width = "0"; // Reset width to 0
+    setTimeout(() => {
+        lineTimerElement.style.transition = "width 1.8s linear"; // Reapply transition
+        lineTimerElement.style.width = `${dynamicWordElement.offsetWidth * 1}px`; // Start animation
+    }, 50); // Small delay to ensure transition is reapplied
+}
 
-        setTimeout(() => {
-            // Change word
-            dynamicWordElement.innerText = words[currentIndex];
-            currentIndex = (currentIndex + 1) % words.length;
+function changeWord() {
+    // Fade out by removing 'visible' class
+    dynamicWordElement.classList.remove("visible");
 
-            // Fade in by adding 'visible' class
-            dynamicWordElement.classList.add("visible");
+    setTimeout(() => {
+        // Change word
+        dynamicWordElement.innerText = words[currentIndex];
+        currentIndex = (currentIndex + 1) % words.length;
 
-            // Update timer width
-            updateTimerWidth();
-        }, 300); // Match CSS fade duration
+        // Fade in by adding 'visible' class
+        dynamicWordElement.classList.add("visible");
 
-        // Reset and start the timer line animation
-        resetTimer();
-    }
+        // Update timer width
+        updateTimerWidth();
+    }, 300); // Match CSS fade duration
 
-    // Start the loop
-    setInterval(changeWord, 1800); // Match the timer line animation duration
+    // Reset and start the timer line animation
+    resetTimer();
+}
 
-    // Adjust the timer width for the initial word
-    updateTimerWidth();
-    resetTimer(); // Start timer animation for the first word
+// Start the loop
+setInterval(changeWord, 1800); // Match the timer line animation duration
 
-
-
+// Adjust the timer width for the initial word
+updateTimerWidth();
+resetTimer(); // Start timer animation for the first word
 
 
 
@@ -157,149 +153,152 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    let chatbotIcon = document.getElementById("mughader_chatbot_icon");
-    let chatSidebar = document.getElementById("mughader_chat_sidebar");
-    let closeChat = document.getElementById("mughader_close_chat");
-    let sendBtn = document.getElementById("mughader_send_btn");
-    let messageBar = document.getElementById("mughader_message_bar");
-    let messageBox = document.querySelector(".mughader_message_box");
-    let chatOverlay = document.getElementById("mughader_chat_overlay");
 
-    let API_URL = "https://api.openai.com/v1/chat/completions";
-    let API_KEY = "sk-***76cA";
 
-    /* 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 */
 
-    // Check if the user is on a mobile device
-    const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+let chatbotIcon = document.getElementById("mughader_chatbot_icon");
+let chatSidebar = document.getElementById("mughader_chat_sidebar");
+let closeChat = document.getElementById("mughader_close_chat");
+let sendBtn = document.getElementById("mughader_send_btn");
+let messageBar = document.getElementById("mughader_message_bar");
+let messageBox = document.querySelector(".mughader_message_box");
+let chatOverlay = document.getElementById("mughader_chat_overlay");
 
-    // Open Slider if ai bot icon is clicked
-    chatbotIcon.addEventListener("click", () => {
-        chatSidebar.classList.add("active");
-        chatOverlay.classList.add("active");
-    });
+let API_URL = "https://api.openai.com/v1/chat/completions";
+let API_KEY = "sk-***76cA";
 
-    // Close Sidebar if close slider button is clicked
-    closeChat.addEventListener("click", () => {
-        chatSidebar.classList.remove("active");
-        chatOverlay.classList.remove("active");
-    });
+/* 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 */
 
-    // Close Sidebar if Overlay is Clicked
-    chatOverlay.addEventListener("click", () => {
-        chatSidebar.classList.remove("active");
-        chatOverlay.classList.remove("active");
-    });
+// Check if the user is on a mobile device
+const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
 
-    // Send Message Function
-    sendBtn.onclick = function () {
-        if (messageBar.value.trim() !== "") {
-            let UserTypedMessage = messageBar.value.trim();
-            messageBar.value = "";
+// Open Slider if ai bot icon is clicked
+chatbotIcon.addEventListener("click", () => {
+    chatSidebar.classList.add("active");
+    chatOverlay.classList.add("active");
+});
 
-            let userMessage = `
+// Close Sidebar if close slider button is clicked
+closeChat.addEventListener("click", () => {
+    chatSidebar.classList.remove("active");
+    chatOverlay.classList.remove("active");
+});
+
+// Close Sidebar if Overlay is Clicked
+chatOverlay.addEventListener("click", () => {
+    chatSidebar.classList.remove("active");
+    chatOverlay.classList.remove("active");
+});
+
+// Send Message Function
+sendBtn.onclick = function () {
+    if (messageBar.value.trim() !== "") {
+        let UserTypedMessage = messageBar.value.trim();
+        messageBar.value = "";
+
+        let userMessage = `
                 <div class="chat message">
                     <span>${UserTypedMessage}</span>
                 </div>
             `;
 
-            let botResponse = `
+        let botResponse = `
                 <div class="chat response">
                     <img src="مكتب-سياحي/مكتب-سياحي-بحريني.webp">
                     <span class="new">...</span>
                 </div>
             `;
 
-            messageBox.insertAdjacentHTML("beforeend", userMessage);
+        messageBox.insertAdjacentHTML("beforeend", userMessage);
 
-            setTimeout(() => {
-                messageBox.insertAdjacentHTML("beforeend", botResponse);
+        setTimeout(() => {
+            messageBox.insertAdjacentHTML("beforeend", botResponse);
 
-                let requestOptions = {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [{ role: "user", content: UserTypedMessage }]
-                    })
-                };
+            let requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    messages: [{ role: "user", content: UserTypedMessage }]
+                })
+            };
 
-                fetch(API_URL, requestOptions)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        let ChatBotResponse = document.querySelector(".response .new");
-                        ChatBotResponse.innerHTML = data.choices[0].message.content;
-                        ChatBotResponse.classList.remove("new");
-                    })
-                    .catch(() => {
-                        let ChatBotResponse = document.querySelector(".response .new");
-                        ChatBotResponse.innerHTML = "الموقع مازال في وضع التجربة";
-                    });
-            }, 100);
+            fetch(API_URL, requestOptions)
+                .then((res) => res.json())
+                .then((data) => {
+                    let ChatBotResponse = document.querySelector(".response .new");
+                    ChatBotResponse.innerHTML = data.choices[0].message.content;
+                    ChatBotResponse.classList.remove("new");
+                })
+                .catch(() => {
+                    let ChatBotResponse = document.querySelector(".response .new");
+                    ChatBotResponse.innerHTML = "الموقع مازال في وضع التجربة";
+                });
+        }, 100);
 
 
 
-            document.getElementById("mughader_message_bar").style.height = "40px"; // Reset to default height;
+        document.getElementById("mughader_message_bar").style.height = "40px"; // Reset to default height;
+    }
+};
+
+// Attach Send Message Function to Enter Key (for Desktop)
+if (!isMobileDevice) {
+    messageBar.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // Prevent default behavior
+            sendBtn.click();
+        } else if (event.key === "Enter" && event.shiftKey) {
+            event.preventDefault(); // Allow Shift+Enter to insert a new line
+            const cursorPosition = messageBar.selectionStart;
+            messageBar.value =
+                messageBar.value.substring(0, cursorPosition) + "\n" + messageBar.value.substring(cursorPosition);
+            messageBar.selectionStart = messageBar.selectionEnd = cursorPosition + 1; // Move cursor to the new line
+            messageBar.style.height = "auto"; // Reset height to auto
+            messageBar.style.height = `${messageBar.scrollHeight}px`; // Adjust height based on content
         }
-    };
-
-    // Attach Send Message Function to Enter Key (for Desktop)
-    if (!isMobileDevice) {
-        messageBar.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault(); // Prevent default behavior
-                sendBtn.click();
-            } else if (event.key === "Enter" && event.shiftKey) {
-                event.preventDefault(); // Allow Shift+Enter to insert a new line
-                const cursorPosition = messageBar.selectionStart;
-                messageBar.value =
-                    messageBar.value.substring(0, cursorPosition) + "\n" + messageBar.value.substring(cursorPosition);
-                messageBar.selectionStart = messageBar.selectionEnd = cursorPosition + 1; // Move cursor to the new line
-                messageBar.style.height = "auto"; // Reset height to auto
-                messageBar.style.height = `${messageBar.scrollHeight}px`; // Adjust height based on content
-            }
-        });
-    }
-
-    // Enable Enter for New Line Only (for Mobile)
-    if (isMobileDevice) {
-        messageBar.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Prevent sending the message
-                const cursorPosition = messageBar.selectionStart;
-                messageBar.value =
-                    messageBar.value.substring(0, cursorPosition) + "\n" + messageBar.value.substring(cursorPosition);
-                messageBar.selectionStart = messageBar.selectionEnd = cursorPosition + 1; // Move cursor to the new line
-                messageBar.style.height = "auto"; // Reset height to auto
-                messageBar.style.height = `${messageBar.scrollHeight}px`; // Adjust height based on content
-            }
-        });
-    }
-
-    // Adjust Textarea Height Dynamically
-    messageBar.addEventListener("input", function () {
-        this.style.height = "auto"; // Reset height to auto
-        this.style.height = `${this.scrollHeight}px`; // Set height based on scroll height
     });
+}
 
-    // Handle Dynamic Text Direction
-    document.querySelectorAll('.mughader_dynamic_direction_input_class').forEach(input => {
-        input.addEventListener('input', function () {
-            let firstChar = this.value.trim().charAt(0);
+// Enable Enter for New Line Only (for Mobile)
+if (isMobileDevice) {
+    messageBar.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent sending the message
+            const cursorPosition = messageBar.selectionStart;
+            messageBar.value =
+                messageBar.value.substring(0, cursorPosition) + "\n" + messageBar.value.substring(cursorPosition);
+            messageBar.selectionStart = messageBar.selectionEnd = cursorPosition + 1; // Move cursor to the new line
+            messageBar.style.height = "auto"; // Reset height to auto
+            messageBar.style.height = `${messageBar.scrollHeight}px`; // Adjust height based on content
+        }
+    });
+}
 
-            if (firstChar) {
-                // Check if the first character is Arabic
-                if (firstChar.match(/[\u0600-\u06FF]/)) {
-                    this.style.direction = 'rtl';
-                } else {
-                    this.style.direction = 'ltr';
-                }
+// Adjust Textarea Height Dynamically
+messageBar.addEventListener("input", function () {
+    this.style.height = "auto"; // Reset height to auto
+    this.style.height = `${this.scrollHeight}px`; // Set height based on scroll height
+});
+
+// Handle Dynamic Text Direction
+document.querySelectorAll('.mughader_dynamic_direction_input_class').forEach(input => {
+    input.addEventListener('input', function () {
+        let firstChar = this.value.trim().charAt(0);
+
+        if (firstChar) {
+            // Check if the first character is Arabic
+            if (firstChar.match(/[\u0600-\u06FF]/)) {
+                this.style.direction = 'rtl';
+            } else {
+                this.style.direction = 'ltr';
             }
-        });
+        }
     });
+});
 
 
 
@@ -311,10 +310,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    messageBar.addEventListener("input", function () {
-        this.style.height = "auto"; // Reset height to auto
-        this.style.height = `${this.scrollHeight}px`; // Set height based on scroll height
-    });
+messageBar.addEventListener("input", function () {
+    this.style.height = "auto"; // Reset height to auto
+    this.style.height = `${this.scrollHeight}px`; // Set height based on scroll height
 });
 
 
