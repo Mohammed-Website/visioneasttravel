@@ -24,50 +24,64 @@ function closeSidebar() {
 
 
 
-scrollToWhoAreWe = function (elementIdName) {
-    const targetDiv = document.getElementById(elementIdName);
-    if (targetDiv) {
-        const targetPosition = targetDiv.getBoundingClientRect().top + window.scrollY;
-        const windowHeight = window.innerHeight;
-        const scrollToPosition = targetPosition - (windowHeight / 2) + (targetDiv.clientHeight / 2);
-
-        window.scrollTo({
-            top: scrollToPosition,
-            behavior: "smooth"
-        });
-    }
-
-}
 
 
-/* Header show or hide based on scrolling */
-const header = document.getElementById('mughader_header');
-let lastScrollPosition = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScrollPosition = window.scrollY;
-
-    if (currentScrollPosition > lastScrollPosition) {
-        // Scrolling down
-        header.classList.add('hidden');
-    } else {
-        // Scrolling up
-        header.classList.remove('hidden');
-    }
-
-    lastScrollPosition = currentScrollPosition;
-});
-
-
-
-
-
-
-
-
-
-/* Switching words functionality */
 document.addEventListener("DOMContentLoaded", function () {
+    const section = document.querySelector(".wow_effect_section");
+
+    function createFloatingElement() {
+        const element = document.createElement("div");
+        element.classList.add("floating_element");
+
+        // Random position
+        const posX = Math.random() * window.innerWidth;
+        const posY = Math.random() * window.innerHeight;
+
+        // Random size (more variation)
+        const size = Math.random() * 80 + 30; // Min 30px, Max 110px
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+
+        // Random animation duration (slower movement)
+        const duration = Math.random() * 6 + 4; // 4s to 10s
+        element.style.animationDuration = `${duration}s`;
+
+        // Random blur for depth effect
+        const blurValue = Math.random() * 3 + 1;
+        element.style.filter = `blur(${blurValue}px)`;
+
+        // Random opacity for some circles to be more visible
+        element.style.opacity = Math.random() * 0.6 + 0.4; // Between 0.4 and 1
+
+        element.style.left = `${posX}px`;
+        element.style.top = `${posY}px`;
+
+        section.appendChild(element);
+
+        // Remove after animation ends
+        setTimeout(() => {
+            element.remove();
+        }, duration * 1000);
+    }
+
+    // Generate floating elements continuously
+    setInterval(createFloatingElement, 800);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const words = [
         "رحلات سياحية",
         "موسكو",
@@ -129,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Adjust the timer width for the initial word
     updateTimerWidth();
     resetTimer(); // Start timer animation for the first word
-});
 
 
 
@@ -144,50 +157,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
-
-
-/* Function for all elements when scrolling */
-document.addEventListener("DOMContentLoaded", () => {
-    const animatedElements = document.querySelectorAll(".mughader_animate_on_scroll");
-
-    const observerOptions = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1
-    };
-
-    const observerCallback = (entries) => {
-        entries.forEach(entry => {
-            // Check if the element is intersecting and hasn't been animated before
-            if (entry.isIntersecting && !entry.target.classList.contains("animation_done")) {
-                entry.target.classList.add("intro_animation", "animation_done");
-                entry.target.classList.remove("outro_animation");
-            } else if (!entry.isIntersecting && !entry.target.classList.contains("animation_done")) {
-                entry.target.classList.remove("intro_animation");
-                entry.target.classList.add("outro_animation");
-            }
-        });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    animatedElements.forEach(element => {
-        observer.observe(element);
-    });
-});
-
-
-
-
-
-
-
-
-/* Ai bot chat functionality */
-document.addEventListener("DOMContentLoaded", () => {
     let chatbotIcon = document.getElementById("mughader_chatbot_icon");
     let chatSidebar = document.getElementById("mughader_chat_sidebar");
     let closeChat = document.getElementById("mughader_close_chat");
@@ -331,17 +300,100 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-});
 
-/* Auto resize textarea element */
-document.addEventListener("DOMContentLoaded", function () {
-    const messageBar = document.getElementById("mughader_message_bar");
+
+
+
+
+
+
+
+
+
 
     messageBar.addEventListener("input", function () {
         this.style.height = "auto"; // Reset height to auto
         this.style.height = `${this.scrollHeight}px`; // Set height based on scroll height
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+scrollToWhoAreWe = function (elementIdName) {
+    const targetDiv = document.getElementById(elementIdName);
+    if (targetDiv) {
+        const targetPosition = targetDiv.getBoundingClientRect().top + window.scrollY;
+        const windowHeight = window.innerHeight;
+        const scrollToPosition = targetPosition - (windowHeight / 2) + (targetDiv.clientHeight / 2);
+
+        window.scrollTo({
+            top: scrollToPosition,
+            behavior: "smooth"
+        });
+    }
+
+}
+
+
+/* Header show or hide based on scrolling */
+const header = document.getElementById('mughader_header');
+let lastScrollPosition = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScrollPosition = window.scrollY;
+
+    if (currentScrollPosition > lastScrollPosition) {
+        // Scrolling down
+        header.classList.add('hidden');
+    } else {
+        // Scrolling up
+        header.classList.remove('hidden');
+    }
+
+    lastScrollPosition = currentScrollPosition;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
