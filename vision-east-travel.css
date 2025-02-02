@@ -301,7 +301,7 @@ header.hidden {
   font-size: 1.5rem;
   padding: 5px;
   vertical-align: middle;
-  border-radius: 50%;
+  border-radius: 10%;
 }
 
 /* Mobile Menu Icon */
